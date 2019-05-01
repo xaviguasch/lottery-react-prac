@@ -2,38 +2,36 @@ import React, { Component } from 'react'
 import LotteryBall from './LotteryBall'
 
 class Lottery extends Component {
+  static defaultProps = {
+    title: 'Lotto',
+    maxBalls: 6,
+    maxNum: 5
+  }
+
   constructor(props) {
     super(props)
     this.state = {
-      nums: [0, 1, 2]
+      nums: Array.from({ length: this.props.maxBalls })
     }
 
-    this.renegenerateNums = this.renegenerateNums.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  static defaultProps = {
-    title: 'Big Lotto',
-    numBalls: 6,
-    maxNum: 40
-  }
+  generate() {}
 
-  renegenerateNums() {
-    let rand = Math.floor(Math.random() * this.props.maxNum + 1)
-
-    // let newState = { ...this.state.nums, rand }
-
-    // this.setState({ nums: newState })
+  handleClick() {
+    this.generate()
   }
 
   render() {
     return (
-      <div>
+      <section className='Lottery'>
         <h1>{this.props.title}</h1>
 
-        <LotteryBall num={5} />
+        <div>{this.state.nums}</div>
 
-        <button onClick={this.renegenerateNums}>Generate</button>
-      </div>
+        <button onClick={this.handleClick}>Generate</button>
+      </section>
     )
   }
 }
